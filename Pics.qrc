@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/animations">
+        <file>Res/warrior.png</file>
+    </qresource>
+</RCC>
