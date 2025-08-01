@@ -8,19 +8,11 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-    animation.cpp \
-    character.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    sprite.cpp
+INCLUDEPATH += $$PWD/hdr
 
-HEADERS += \
-    animation.h \
-    character.h \
-    mainwindow.h \
-    mava_types.h \
-    sprite.h
+SOURCES += $$files(src/*.cpp)
+
+HEADERS += $$files(hdr/*.h)
 
 FORMS += \
     mainwindow.ui
