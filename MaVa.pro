@@ -19,6 +19,7 @@ HEADERS += \
     animation.h \
     character.h \
     mainwindow.h \
+    mava_types.h \
     sprite.h
 
 FORMS += \

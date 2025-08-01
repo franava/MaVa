@@ -38,23 +38,28 @@ public:
     std::shared_ptr<Sprite> getSprite(size_t id) ;
     //returns the sprite associated to the provided description
     std::shared_ptr<Sprite> getSprite(std::string d) ;
+    size_t getSpriteIdFromDescription(std::string d) ;
 
     void switchActiveSprite(size_t i) ;
     void switchActiveSprite(std::string s) ;
     QPixmap getActivePixmap() {return *activeSprite_->getActive();}
+
+
 public slots:
     void startAnimation() ;
     void stopAnimation() ;
     void rotatePixmap() ;
     void randomActiveSprite() ;
+    void nextSprite() ;
 
 private:
     std::vector<std::shared_ptr<Sprite>> sprites_ ;
     std::vector<std::string> descriptions_;
     std::shared_ptr<Sprite> activeSprite_ {nullptr} ;
+    size_t activeSpriteIndex_ = -1  ;
     QGraphicsPixmapItem* pmI_{nullptr} ;
     QTimer* timer_ {nullptr};
-
+    bool isInnerTimer_{false} ;
 };
 
 #endif // ANIMATION_H

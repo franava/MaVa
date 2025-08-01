@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QDebug>
@@ -16,12 +15,12 @@ class MainWindow;
 QT_END_NAMESPACE
 
 class QGraphicsPixmapItem;
-class Animation ;
+class Character ;
+
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -31,8 +30,9 @@ private slots:
     void onActionAnimationTriggered() ;
 
 private:
-    Ui::MainWindow *ui;
-    QGraphicsScene *qS_ ;
-    QTimer *timer_ ;
+    Ui::MainWindow* ui_;
+    QGraphicsScene* qS_ ;
+    Character* c_ ;
+    QTimer* timer_ ;
 };
 #endif // MAINWINDOW_H

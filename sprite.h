@@ -22,6 +22,17 @@ public:
         size_t separator=0) ; //Size of separation among sprites (if any)
 
     //This method takes a SpriteSheet as input, as well as a rectangle (defined by TL/BR corners)
+    //and splits it into equal size. if a separation among frames exists, takes it into account.
+    //rm pixel's value is taken as the value to be removed
+    void defineSpriteFrameRemovingBg(
+        const QString& file, //Pixmap class main input
+        QPoint tl, //TopLeft corner of Sprite
+        QPoint br, //BottomRight corner of Sprite
+        QPoint rm, //Pixel who's value is to be removed from image
+        size_t elements, //Number of elements in Sprite
+        size_t separator=0);
+
+    //This method takes a SpriteSheet as input, as well as a rectangle (defined by TL/BR corners)
     //and splits it into equal size. if a separation among frames exists, takes it into account
     void defineSpriteFrames(
         QPixmap pm, //Pixmap class main input
@@ -29,6 +40,45 @@ public:
         QPoint br, //BottomRight corner of Sprite
         size_t elements, //Number of elements in Sprite
         size_t separator=0) ; //Size of separation among sprites (if any)
+
+    //This method takes a SpriteSheet as input, as well as a rectangle (defined by TL/BR corners)
+    //and splits it into equal size. if a separation among frames exists, takes it into account.
+    //rm pixel's value is taken as the value to be removed
+    void defineSpriteFrameRemovingBg(
+        QPixmap pm, //Pixmap class main input
+        QPoint tl, //TopLeft corner of Sprite
+        QPoint br, //BottomRight corner of Sprite
+        QPoint rm, //Pixel who's value is to be removed from image
+        size_t elements, //Number of elements in Sprite
+        size_t separator=0);
+
+    //This method takes a Spriteshjeet as input, as well as a list of Rectangle
+    //and extracts each rectangle as a new frame of a sprite.
+    void defineFFASpriteFrames(
+        const QString&  pm,
+        const std::vector<QRect>& frames) ;
+
+    //This method takes a Spriteshjeet as input, as well as a list of Rectangle
+    //and extracts each rectangle as a new frame of a sprite.
+    void defineFFASpriteFrames(
+        QPixmap pm,
+        const std::vector<QRect>& frames) ;
+
+    //This method takes a Spriteshjeet as input, as well as a list of Rectangle
+    //and extracts each rectangle as a new frame of a sprite.
+    //rm pixel's value is taken as the value to be removed
+    void defineFFASpriteFrameRemovingBackground(
+        const QString&  pm,
+        QPoint rm,
+        const std::vector<QRect>& frames) ;
+
+    //This method takes a Spriteshjeet as input, as well as a list of Rectangle
+    //and extracts each rectangle as a new frame of a sprite.
+    //rm pixel's value is taken as the value to be removed
+    void defineFFASpriteFrameRemovingBackground(
+        QPixmap pm,
+        QPoint rm,
+        const std::vector<QRect> &frames);
 
     //Returns the next frame of a sprite making it the active frame
     QPixmap& rotateActive() ;
@@ -41,6 +91,8 @@ public:
     //rescales each frame of the Sprite by a scaleX by scaleY value
     void rescaleSprite(size_t scaleX, size_t scaleY, bool isSmooth=false) ;
 
+    QPixmap addTransparency(const QPixmap &pixmap, const QPoint &point) ;
+
     /************************************
      * Methods needed for Debug purpose *
      ************************************/
@@ -50,6 +102,9 @@ public:
     const std::string& name() const noexcept {return name_ ; }
     //returns the number of frames that compose the sprite
     size_t size() const noexcept {return pMV_.size() ;}
+    //sets name_ variable
+    void name(const std::string &name) { name_ = name ;}
+
 
     /************************************************
      * Methods needed for Composite-Sprite Creation *

@@ -1,16 +1,21 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+
 #include <animation.h>
 #include <QGraphicsPixmapItem>
 
-class Character : public QGraphicsPixmapItem, public QObject
+class Character  : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT ;
 public:
     Character(std::shared_ptr<Animation> a);
+    void animate() ;
 
 public slots:
-    void animate() ;
+    void switchAnimationToRandom() ;
+    void switchAnimationToNext() ;
+    void switchAnimationToSpecific(size_t t) ;
+    void switchAnimationToSpecific(const std::string& s) ;
 private:
     std::shared_ptr<Animation> animation_ ;
 };

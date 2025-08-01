@@ -48,6 +48,26 @@
     <string>Animation</string>
    </property>
   </action>
+  <action name="actionSword">
+   <property name="text">
+    <string>Sword</string>
+   </property>
+  </action>
+  <action name="actionBlueSword">
+   <property name="text">
+    <string>BlueSword</string>
+   </property>
+  </action>
+  <action name="actionDeath">
+   <property name="text">
+    <string>Death</string>
+   </property>
+  </action>
+  <action name="actionShieldBash">
+   <property name="text">
+    <string>ShieldBash</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
