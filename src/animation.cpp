@@ -9,7 +9,9 @@ Animation::~Animation() noexcept
     delete timer_ ;
 }
 
-void Animation::addSprite(Sprite s, std::string d)
+void Animation::addSprite(
+    Sprite s,
+    std::string d)
 {
     sprites_.push_back(std::make_shared<Sprite>(s)) ;
     if(activeSpriteIndex_ == size_t(-1))
@@ -17,10 +19,12 @@ void Animation::addSprite(Sprite s, std::string d)
         activeSpriteIndex_ = 0 ;
         activeSprite_ = sprites_.front() ;
     }
-    descriptions_.push_back(d);
+    descriptions_.push_back(d) ;
 }
 
-void Animation::addSprite(std::shared_ptr<Sprite> s, std::string d)
+void Animation::addSprite(
+    std::shared_ptr<Sprite> s,
+    std::string d)
 {
     sprites_.push_back(s) ;
     if(activeSpriteIndex_ == size_t(-1))
@@ -28,7 +32,7 @@ void Animation::addSprite(std::shared_ptr<Sprite> s, std::string d)
         activeSpriteIndex_ = 0 ;
         activeSprite_ = sprites_.front() ;
     }
-    descriptions_.push_back(d);
+    descriptions_.push_back(d) ;
 }
 
 void Animation::setActiveSprite(size_t id)
@@ -37,7 +41,7 @@ void Animation::setActiveSprite(size_t id)
     {
         activeSprite_->reset() ;
     }
-    activeSprite_ = getSprite(id);
+    activeSprite_ = getSprite(id) ;
     activeSpriteIndex_ = id ;
 }
 void Animation::setActiveSprite(std::string d)
@@ -46,8 +50,8 @@ void Animation::setActiveSprite(std::string d)
     {
         activeSprite_->reset() ;
     }
-    activeSprite_ = getSprite(d);
-    auto id = getSpriteIdFromDescription(d);
+    activeSprite_ = getSprite(d) ;
+    auto id = getSpriteIdFromDescription(d) ;
     activeSpriteIndex_ = id ;
 }
 
@@ -68,7 +72,7 @@ void Animation::switchActiveSprite(size_t i)
     activeSprite_ = sprites_[i] ;
 }
 
-void Animation::switchActiveSprite(std::string s)
+void Animation::switchActiveSprite( std::string s)
 {
     if(activeSprite_ != nullptr)
         activeSprite_->reset() ;
@@ -137,7 +141,7 @@ std::shared_ptr<Sprite> Animation::getSprite(std::string d)
         if (descriptions_[i] == d)
             return sprites_[i] ;
     }
-    auto e = std::exception();
+    auto e = std::exception() ;
     throw(e) ;
 }
 
@@ -159,3 +163,17 @@ std::shared_ptr<Sprite> Animation::getSprite(size_t id)
     return sprites_.at(id) ;
 }
 
+QGraphicsPixmapItem *&Animation::pmi()
+{
+    return pmI_ ;
+}
+
+QPixmap Animation::getActivePixmap()
+{
+    return *activeSprite_->getActive() ;
+}
+
+void Animation::setTimer(QTimer *t)
+{
+    timer_ = t ;
+}

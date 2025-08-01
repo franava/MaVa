@@ -3,12 +3,12 @@
 #include <QBitmap>
 #include <algorithm>
 
-Sprite::Sprite( std::string n)
+Sprite::Sprite( std::string n )
 {
     name_ = n ;
 }
 
-Sprite::Sprite(const Sprite &s)
+Sprite::Sprite( const Sprite &s )
 {
     name_ = s.name_ ;
     pMV_ = s.pMV_ ;
@@ -30,10 +30,15 @@ void Sprite::defineSpriteFrames(
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
-void Sprite::defineSpriteFrameRemovingBg(const QString &file, QPoint tl, QPoint br, QPoint rm, size_t elements, size_t separator)
+void Sprite::defineSpriteFrameRemovingBg(
+    const QString &file,
+    QPoint tl,
+    QPoint br,
+    QPoint rm,
+    size_t elements,
+    size_t separator)
 {
-    qDebug() << "Sprite::defineSpriteFrameRemovingBg" ;
-    auto pM = addTransparency(QPixmap(file), rm);
+    auto pM = addTransparency(QPixmap(file), rm) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
@@ -44,7 +49,6 @@ void Sprite::defineSpriteFrames(
     size_t elements,
     size_t separator)
 {
-    qDebug() << "Sprite::defineSpriteFrames" ;
     auto singlePm = pm.copy(QRect(tl, br)) ;
     pMV_.resize(elements) ;
     auto width = (singlePm.width() - (elements -1)* separator) / elements ;
@@ -56,9 +60,15 @@ void Sprite::defineSpriteFrames(
     reset() ;
 }
 
-void Sprite::defineSpriteFrameRemovingBg(QPixmap pm, QPoint tl, QPoint br, QPoint rm, size_t elements, size_t separator)
+void Sprite::defineSpriteFrameRemovingBg(
+    QPixmap pm,
+    QPoint tl,
+    QPoint br,
+    QPoint rm,
+    size_t elements,
+    size_t separator)
 {
-    auto pM = addTransparency(pm, rm);
+    auto pM = addTransparency(pm, rm) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
@@ -67,10 +77,12 @@ void Sprite::defineFFASpriteFrames(
     const std::vector<QRect>& frames)
 {
     QPixmap p(pm) ;
-    defineFFASpriteFrames(p, frames);
+    defineFFASpriteFrames(p, frames) ;
 }
 
-void Sprite::defineFFASpriteFrames(QPixmap pm, const std::vector<QRect>& frames)
+void Sprite::defineFFASpriteFrames(
+    QPixmap pm,
+    const std::vector<QRect>& frames)
 {
     pMV_.reserve(frames.size()) ;
 
@@ -80,33 +92,44 @@ void Sprite::defineFFASpriteFrames(QPixmap pm, const std::vector<QRect>& frames)
         [&](auto f)
         {
             pMV_.push_back(pm.copy(f));
-        });
+        }) ;
     reset() ;
 }
 
-void Sprite::defineFFASpriteFrameRemovingBackground(const QString &pm, QPoint rm, const std::vector<QRect> &frames)
+void Sprite::defineFFASpriteFrameRemovingBackground(
+    const QString &pm,
+    QPoint rm,
+    const std::vector<QRect> &frames)
 {
-    auto  p = addTransparency(QPixmap(pm), rm);
+    auto  p = addTransparency( QPixmap(pm), rm) ;
     defineFFASpriteFrames(p, frames) ;
 }
 
-void Sprite::defineFFASpriteFrameRemovingBackground(QPixmap pm, QPoint rm, const std::vector<QRect> &frames)
+void Sprite::defineFFASpriteFrameRemovingBackground(
+    QPixmap pm,
+    QPoint rm,
+    const std::vector<QRect> &frames)
 {
-    auto  p = addTransparency(pm, rm);
+    auto  p = addTransparency(pm, rm) ;
     defineFFASpriteFrames(p, frames) ;
 }
 
-void Sprite::addFrame(QPixmap p)
+void Sprite::addFrame( QPixmap p )
 {
     pMV_.push_back(p) ;
 }
 
-void Sprite::rescaleSprite(size_t scale, bool isSmooth)
+void Sprite::rescaleSprite(
+    size_t scale,
+    bool isSmooth)
 {
-    rescaleSprite(scale, scale, isSmooth);
+    rescaleSprite(scale, scale, isSmooth) ;
 }
 
-void Sprite::rescaleSprite(size_t scaleX, size_t scaleY, bool isSmooth)
+void Sprite::rescaleSprite(
+    size_t scaleX,
+    size_t scaleY,
+    bool isSmooth)
 {
     std::for_each(
         pMV_.begin(),
@@ -117,7 +140,7 @@ void Sprite::rescaleSprite(size_t scaleX, size_t scaleY, bool isSmooth)
                 e = e.scaled(e.width()*scaleX, e.height()*scaleY, Qt::IgnoreAspectRatio, Qt::SmoothTransformation) ;
             else
                 e = e.scaled(e.width()*scaleX, e.height()*scaleY, Qt::IgnoreAspectRatio) ;
-        });
+        }) ;
 }
 
 QPixmap& Sprite::rotateActive()
@@ -139,7 +162,27 @@ void Sprite::reset()
         active_ = &pMV_.back() ;
 }
 
-Sprite operator+(const Sprite& first,const Sprite& second)
+QPixmap Sprite::addTransparency(
+    const QPixmap &pixmap,
+    const QPoint &point)
+{
+    QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32) ;
+
+    // Get the color to make transparent
+    QRgb target = image.pixel(point) ;
+
+    // Create a mask where this color is black (mask=0) and everything else is white (mask=1)
+    QBitmap mask = QBitmap::fromImage(image.createMaskFromColor(target, Qt::MaskOutColor)) ;
+
+    // Apply the mask to the image
+    image.setAlphaChannel(mask.toImage()) ;
+
+    return QPixmap::fromImage(image) ;
+}
+
+Sprite operator+(
+    const Sprite& first,
+    const Sprite& second)
 {
     Sprite res(first.name());
     std::for_each(
@@ -161,17 +204,27 @@ Sprite operator+(const Sprite& first,const Sprite& second)
     return res ;
 }
 
-QPixmap Sprite::addTransparency(const QPixmap &pixmap, const QPoint &point) {
-    QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+QPixmap *Sprite::getActive()
+{
+    return active_;
+}
 
-    // Get the color to make transparent
-    QRgb target = image.pixel(point);
+const std::string &Sprite::name() const noexcept
+{
+    return name_ ;
+}
 
-    // Create a mask where this color is black (mask=0) and everything else is white (mask=1)
-    QBitmap mask = QBitmap::fromImage(image.createMaskFromColor(target, Qt::MaskOutColor));
+size_t Sprite::size() const noexcept
+{
+    return pMV_.size() ;
+}
 
-    // Apply the mask to the image
-    image.setAlphaChannel(mask.toImage());
+void Sprite::name( const std::string &name)
+{
+    name_ = name ;
+}
 
-    return QPixmap::fromImage(image);
+const std::vector<QPixmap> &Sprite::pmv() const noexcept
+{
+    return pMV_ ;
 }

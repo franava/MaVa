@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui_->graphicsView->setScene(qS_) ;
 
     std::shared_ptr<Animation> a = std::make_shared<Animation>() ;
-#if(0)
+
     auto slash_1 = std::make_shared<Sprite>("slash_1") ;
     slash_1->defineSpriteFrames(
         ":/animations/Res/warrior.png",
@@ -75,8 +75,6 @@ MainWindow::MainWindow(QWidget *parent)
     a->addSprite(death, death.name()) ;
     shield_bash.rescaleSprite(10) ;
     a->addSprite(shield_bash, shield_bash.name());
-    a->setActiveSprite("death");
-#endif
     Sprite walk("walk") ;
     walk.defineSpriteFrameRemovingBg(
         ":/animations/Res/bunny.png",

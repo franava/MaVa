@@ -8,7 +8,7 @@ class Character  : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT ;
 public:
-    Character(std::shared_ptr<Animation> a);
+    Character(std::shared_ptr<Animation> a) ;
     void animate() ;
 
 public slots:
