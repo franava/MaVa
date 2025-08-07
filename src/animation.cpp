@@ -55,14 +55,10 @@ void Animation::setActiveSprite(std::string d)
     activeSpriteIndex_ = id ;
 }
 
-QPixmap Animation::getFirstPixmapForInit()
+
+QPixmap& Animation::rotatePixmap()
 {
     return activeSprite_->rotateActive() ;
-}
-
-void Animation::rotatePixmap()
-{
-    pmI_->setPixmap(activeSprite_->rotateActive()) ;
 }
 
 void Animation::switchActiveSprite(size_t i)
@@ -83,20 +79,6 @@ void Animation::switchActiveSprite( std::string s)
     }
 }
 
-void Animation::startAnimation()
-{
-    if(timer_ == nullptr )
-        initTimer(100) ;
-    timer_->start(100) ;
-    connect(timer_, &QTimer::timeout, this, &Animation::rotatePixmap) ;
-}
-
-void Animation::stopAnimation()
-{
-    if(timer_ != nullptr)
-        timer_->stop() ;
-}
-
 void Animation::randomActiveSprite()
 {
     if(activeSpriteIndex_ != size_t(-1))
@@ -108,8 +90,6 @@ void Animation::randomActiveSprite()
     }
     activeSprite_ = sprites_[activeSpriteIndex_] ;
 }
-
-//
 
 void Animation::nextSprite()
 {
@@ -150,7 +130,7 @@ size_t Animation::getSpriteIdFromDescription(std::string d)
     size_t rv(-1) ;
     for (size_t i = 0; i < descriptions_.size() ; ++i)
     {
-        if (descriptions_[i] == d )
+        if ( descriptions_[i] == d )
         {
             rv = i ;
         }

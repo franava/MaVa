@@ -8,11 +8,14 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += $$PWD/hdr
+INCLUDEPATH += $$PWD/hdr \
+               $$PWD/specifics/hdr
 
-SOURCES += $$files(src/*.cpp)
+SOURCES += $$files(src/*.cpp) \
+           $$files(specifics/src/*.cpp)
 
-HEADERS += $$files(hdr/*.h)
+HEADERS += $$files(hdr/*.h) \
+           $$files(specifics/hdr/*.h)
 
 FORMS += \
     mainwindow.ui

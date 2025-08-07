@@ -96,10 +96,6 @@ public:
         size_t scaleY,          // scaling factor
         bool isSmooth=false) ;  // is the transformation smoothed or rough (false == rough)
 
-    QPixmap addTransparency(
-        const QPixmap &pixmap,
-        const QPoint &point) ;
-
     /************************************
      * Methods needed for Debug purpose *
      ************************************/
@@ -117,6 +113,9 @@ public:
      ************************************************/
     //Adds a single frame to the spite. the burden to create a proper frame is upon the developer
     void addFrame(QPixmap p) ;
+
+    //Adds a vector of frames to the spite. the burden to create a proper frame is upon the developer
+    void addFrames(const std::vector<QPixmap>& v) ;
 
     //returns the vector of frames. the reference is constant.
     const std::vector<QPixmap> &pmv() const noexcept ;

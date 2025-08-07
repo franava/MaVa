@@ -38,34 +38,20 @@
     <property name="title">
      <string>Start</string>
     </property>
-    <addaction name="actionAnimation"/>
+    <addaction name="actionKnightAnimation"/>
+    <addaction name="actionWitchAnimation"/>
    </widget>
    <addaction name="menuStart"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionAnimation">
+  <action name="actionKnightAnimation">
    <property name="text">
-    <string>Animation</string>
+    <string>AnimateKnight</string>
    </property>
   </action>
-  <action name="actionSword">
+  <action name="actionWitchAnimation">
    <property name="text">
-    <string>Sword</string>
-   </property>
-  </action>
-  <action name="actionBlueSword">
-   <property name="text">
-    <string>BlueSword</string>
-   </property>
-  </action>
-  <action name="actionDeath">
-   <property name="text">
-    <string>Death</string>
-   </property>
-  </action>
-  <action name="actionShieldBash">
-   <property name="text">
-    <string>ShieldBash</string>
+    <string>AnimateWitch</string>
    </property>
   </action>
  </widget>

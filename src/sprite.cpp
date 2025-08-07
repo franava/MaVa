@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QBitmap>
 #include <algorithm>
+#include <utility.h>
 
 Sprite::Sprite( std::string n )
 {
@@ -38,7 +39,7 @@ void Sprite::defineSpriteFrameRemovingBg(
     size_t elements,
     size_t separator)
 {
-    auto pM = addTransparency(QPixmap(file), rm) ;
+    auto pM = utility::addTransparency(QPixmap(file), rm) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
@@ -68,7 +69,7 @@ void Sprite::defineSpriteFrameRemovingBg(
     size_t elements,
     size_t separator)
 {
-    auto pM = addTransparency(pm, rm) ;
+    auto pM = utility::addTransparency(pm, rm) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
@@ -101,7 +102,7 @@ void Sprite::defineFFASpriteFrameRemovingBackground(
     QPoint rm,
     const std::vector<QRect> &frames)
 {
-    auto  p = addTransparency( QPixmap(pm), rm) ;
+    auto  p = utility::addTransparency( QPixmap(pm), rm) ;
     defineFFASpriteFrames(p, frames) ;
 }
 
@@ -110,13 +111,24 @@ void Sprite::defineFFASpriteFrameRemovingBackground(
     QPoint rm,
     const std::vector<QRect> &frames)
 {
-    auto  p = addTransparency(pm, rm) ;
+    auto  p = utility::addTransparency(pm, rm) ;
     defineFFASpriteFrames(p, frames) ;
 }
 
 void Sprite::addFrame( QPixmap p )
 {
     pMV_.push_back(p) ;
+}
+
+void Sprite::addFrames(const std::vector<QPixmap> &v)
+{
+    for_each(
+        v.begin(),
+        v.end(),
+        [&](auto t)
+        {
+            addFrame(t);
+        });
 }
 
 void Sprite::rescaleSprite(
@@ -160,24 +172,6 @@ void Sprite::reset()
 {
     if(pMV_.size() > 0)
         active_ = &pMV_.back() ;
-}
-
-QPixmap Sprite::addTransparency(
-    const QPixmap &pixmap,
-    const QPoint &point)
-{
-    QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32) ;
-
-    // Get the color to make transparent
-    QRgb target = image.pixel(point) ;
-
-    // Create a mask where this color is black (mask=0) and everything else is white (mask=1)
-    QBitmap mask = QBitmap::fromImage(image.createMaskFromColor(target, Qt::MaskOutColor)) ;
-
-    // Apply the mask to the image
-    image.setAlphaChannel(mask.toImage()) ;
-
-    return QPixmap::fromImage(image) ;
 }
 
 Sprite operator+(

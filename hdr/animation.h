@@ -12,7 +12,7 @@ class Animation : public QObject
     Q_OBJECT
 public:
     Animation();
-    ~Animation()noexcept;
+    ~Animation() noexcept;
     //adds Sprite to animation
     void addSprite(
         Sprite s,                   // sprite to be added
@@ -27,9 +27,6 @@ public:
     //sets the active sprite via id (Consistency up to the developer)
     void setActiveSprite(size_t id) ;
 
-    //Returns the first Frame from the activeSprite_
-    //This is used to init the animation
-    QPixmap getFirstPixmapForInit() ;
     //returns the qGraphicsPixmapItem associated to the Animation
     QGraphicsPixmapItem *&pmi() ;
 
@@ -49,10 +46,10 @@ public:
     void switchActiveSprite(std::string s) ;
     QPixmap getActivePixmap() ;
 
-public slots:
-    void startAnimation() ;
-    void stopAnimation() ;
-    void rotatePixmap() ;
+    QTimer& timer(){return *timer_ ;}
+
+public:
+    QPixmap& rotatePixmap() ;
     void randomActiveSprite() ;
     void nextSprite() ;
 

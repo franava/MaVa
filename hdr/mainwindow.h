@@ -5,7 +5,6 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <QTimer>
-#include <QKeyEvent>
 
 
 QT_BEGIN_NAMESPACE
@@ -15,6 +14,8 @@ class MainWindow ;
 QT_END_NAMESPACE
 
 class QGraphicsPixmapItem ;
+class Knight ;
+class Witch ;
 class Character ;
 
 
@@ -27,12 +28,12 @@ public:
     void keyPressEvent(QKeyEvent *event) ;
 
 private slots:
-    void onActionAnimationTriggered() ;
-
+    void onActionAnimationKnightTriggered() ;
+    void onActionAnimationWitchTriggered() ;
 private:
     Ui::MainWindow* ui_;
     QGraphicsScene* qS_ ;
-    Character* c_ ;
+    Character* k_ ;
     QTimer* timer_ ;
 };
 #endif // MAINWINDOW_H
