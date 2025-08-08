@@ -3,13 +3,9 @@
 
 #include <Sprite.h>
 #include <vector>
-#include <QObject>
 
-class QGraphicsPixmapItem ;
-
-class Animation : public QObject
+class Animation
 {
-    Q_OBJECT
 public:
     Animation();
     ~Animation() noexcept;
@@ -27,14 +23,6 @@ public:
     //sets the active sprite via id (Consistency up to the developer)
     void setActiveSprite(size_t id) ;
 
-    //returns the qGraphicsPixmapItem associated to the Animation
-    QGraphicsPixmapItem *&pmi() ;
-
-    //sets the inner timer with an externally-provided timer value
-    void setTimer(QTimer *t) ;
-    //inits inner timer with it's own timer
-    void initTimer(size_t msec) ;
-
     //returns the sprite associated to the provided id
     std::shared_ptr<Sprite> getSprite(size_t id) ;
     //returns the sprite associated to the provided description
@@ -46,8 +34,6 @@ public:
     void switchActiveSprite(std::string s) ;
     QPixmap getActivePixmap() ;
 
-    QTimer& timer(){return *timer_ ;}
-
 public:
     QPixmap& rotatePixmap() ;
     void randomActiveSprite() ;
@@ -58,8 +44,6 @@ private:
     std::vector<std::string> descriptions_ ;
     std::shared_ptr<Sprite> activeSprite_ {nullptr} ;
     size_t activeSpriteIndex_ = -1 ;
-    QGraphicsPixmapItem* pmI_{nullptr} ;
-    QTimer* timer_ {nullptr} ;
     bool isInnerTimer_{false} ;
 } ;
 

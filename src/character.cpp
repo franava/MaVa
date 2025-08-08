@@ -6,7 +6,9 @@ Character::Character()
 {
 }
 
-Character::Character(std::shared_ptr<Animation> a)
+Character::Character(
+    std::shared_ptr<Animation> a,
+    QTimer* t)
 {
     animation_ = a ;
     setPixmap(animation_->rotatePixmap()) ;
@@ -14,7 +16,7 @@ Character::Character(std::shared_ptr<Animation> a)
 
 void Character::animate()
 {
-    connect(&animation_->timer(), &QTimer::timeout, this, &Character::setFrame) ;
+    connect(t_, &QTimer::timeout, this, &Character::setFrame) ;
 }
 
 void Character::setAnimation(std::shared_ptr<Animation> a)
@@ -49,7 +51,12 @@ void Character::setFrame()
 
 void Character::rotateFrameFromAnimation()
 {
-    connect(&animation_->timer(), &QTimer::timeout, this, &Character::setFrame ) ;
+    connect(t_, &QTimer::timeout, this, &Character::setFrame ) ;
+}
+
+QTimer *&Character::timer()
+{
+    return t_ ;
 }
 
 void Character::keyPressEvent(QKeyEvent* event)

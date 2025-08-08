@@ -1,4 +1,4 @@
-#include "animation.h"
+#include <animation.h>
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 
@@ -6,7 +6,7 @@ Animation::Animation() {}
 
 Animation::~Animation() noexcept
 {
-    delete timer_ ;
+//    delete timer_ ;
 }
 
 void Animation::addSprite(
@@ -100,20 +100,6 @@ void Animation::nextSprite()
     activeSprite_ = sprites_[activeSpriteIndex_] ;
 }
 
-void Animation::initTimer(size_t msec)
-{
-    if(timer_ == nullptr)
-    {
-        timer_ = new QTimer  ;
-        timer_->start(msec) ;
-        isInnerTimer_ = true ;
-    }
-    else
-    {
-        qDebug() << "Timer already set: no initTimer taking place" ;
-    }
-}
-
 std::shared_ptr<Sprite> Animation::getSprite(std::string d)
 {
     for(size_t i = 0 ; i < descriptions_.size() ; ++i)
@@ -143,17 +129,7 @@ std::shared_ptr<Sprite> Animation::getSprite(size_t id)
     return sprites_.at(id) ;
 }
 
-QGraphicsPixmapItem *&Animation::pmi()
-{
-    return pmI_ ;
-}
-
 QPixmap Animation::getActivePixmap()
 {
     return *activeSprite_->getActive() ;
-}
-
-void Animation::setTimer(QTimer *t)
-{
-    timer_ = t ;
 }

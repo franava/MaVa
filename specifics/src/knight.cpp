@@ -186,6 +186,6 @@ Knight::Knight(QTimer* qt)
     utility::flipSprite(death_r, death_l, true, false);
     a->addSprite(death_l      , death_l.name());
 
-    a->setTimer(qt) ;
+    timer() = qt ;
     setAnimation(a) ;
 }

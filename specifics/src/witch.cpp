@@ -40,6 +40,6 @@ Witch::Witch(QTimer* qt)
 
     a->addSprite(attack, attack.name()) ;
     a->addSprite(death, death.name());
-    a->setTimer(qt);
+    timer() = qt ;
     setAnimation(a) ;
 }
