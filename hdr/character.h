@@ -6,20 +6,21 @@
 
 class QTimer;
 
-class Character  : public QObject, public QGraphicsPixmapItem
+class Character :
+    public QObject,
+    public QGraphicsPixmapItem
 {
     Q_OBJECT ;
 public:
 
     Character() ;
-    Character(
-        std::shared_ptr<Animation> a,
-        QTimer* t) ;
+
     virtual ~Character()noexcept = default ;
     void animate() ;
     void setAnimation(std::shared_ptr<Animation> a);
     void rotateFrameFromAnimation() ;
     QTimer*& timer() ;
+
 public slots:
 
     void switchAnimationToRandom() ;
@@ -28,6 +29,7 @@ public slots:
     void switchAnimationToSpecific(const std::string& s) ;
     void setFrame() ;
     void keyPressEvent(QKeyEvent *event) ;
+
 private:
     std::shared_ptr<Animation> animation_ ;
     QTimer* t_ ;

@@ -3,7 +3,7 @@
 #include <QBitmap>
 #include <algorithm>
 #include <utility.h>
-
+#include <QString>
 Sprite::Sprite( std::string n )
 {
     name_ = n ;
@@ -21,25 +21,25 @@ Sprite::~Sprite() noexcept
 }
 
 void Sprite::defineSpriteFrames(
-    const QString& file,
+    std::string file,
     QPoint tl,
     QPoint br,
     size_t elements,
     size_t separator)
 {
-    QPixmap pM(file) ;
+    QPixmap pM(file.c_str()) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
 void Sprite::defineSpriteFrameRemovingBg(
-    const QString &file,
+    std::string file,
     QPoint tl,
     QPoint br,
     QPoint rm,
     size_t elements,
     size_t separator)
 {
-    auto pM = utility::addTransparency(QPixmap(file), rm) ;
+    auto pM = utility::addTransparency(QPixmap(file.c_str()), rm) ;
     defineSpriteFrames(pM, tl, br, elements, separator) ;
 }
 
@@ -74,10 +74,10 @@ void Sprite::defineSpriteFrameRemovingBg(
 }
 
 void Sprite::defineFFASpriteFrames(
-    const QString &pm,
+    std::string pm,
     const std::vector<QRect>& frames)
 {
-    QPixmap p(pm) ;
+    QPixmap p(pm.c_str()) ;
     defineFFASpriteFrames(p, frames) ;
 }
 
@@ -98,11 +98,11 @@ void Sprite::defineFFASpriteFrames(
 }
 
 void Sprite::defineFFASpriteFrameRemovingBackground(
-    const QString &pm,
+    std::string pm,
     QPoint rm,
     const std::vector<QRect> &frames)
 {
-    auto  p = utility::addTransparency( QPixmap(pm), rm) ;
+    auto  p = utility::addTransparency( QPixmap(pm.c_str()), rm) ;
     defineFFASpriteFrames(p, frames) ;
 }
 

@@ -1,6 +1,8 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 #include <Sprite.h>
+#include <Animation.h>
+#include <mava_types.h>
 
 namespace utility
 {
@@ -24,6 +26,15 @@ namespace utility
         Sprite& to,
         bool leftRight,
         bool topBottom);
+
+    void ingestSprite(
+        Animation& a,
+        Sprite s) ;
+
+
+    void ingestSprites(
+        Animation& a,
+        const std::vector<Sprite>& sv) ;
 }
 
 

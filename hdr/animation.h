@@ -32,9 +32,10 @@ public:
 
     void switchActiveSprite(size_t i) ;
     void switchActiveSprite(std::string s) ;
-    QPixmap getActivePixmap() ;
 
-public:
+    QPixmap getActivePixmap() ;
+    size_t id() {return activeSpriteIndex_;}
+    std::shared_ptr<Sprite> activeSprite(){return activeSprite_ ;}
     QPixmap& rotatePixmap() ;
     void randomActiveSprite() ;
     void nextSprite() ;
@@ -44,7 +45,6 @@ private:
     std::vector<std::string> descriptions_ ;
     std::shared_ptr<Sprite> activeSprite_ {nullptr} ;
     size_t activeSpriteIndex_ = -1 ;
-    bool isInnerTimer_{false} ;
 } ;
 
 #endif // ANIMATION_H

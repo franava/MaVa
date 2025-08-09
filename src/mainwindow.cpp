@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     timer_->start(100);
     
     connect(ui_->actionKnightAnimation, &QAction::triggered, this, &MainWindow::onActionAnimationKnightTriggered) ;
-    connect(ui_->actionWitchAnimation, &QAction::triggered, this, &MainWindow::onActionAnimationWitchTriggered) ;
+    connect(ui_->actionWitchAnimation , &QAction::triggered, this, &MainWindow::onActionAnimationWitchTriggered) ;
 }
 
 void MainWindow::onActionAnimationKnightTriggered()

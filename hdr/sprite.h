@@ -10,12 +10,12 @@ public:
     Sprite() = default ;
     Sprite(const Sprite&) ;
     ~Sprite()noexcept ;
-
+    Sprite& operator=(const Sprite& ) = default ;
 
     //This method takes a SpriteSheet as input, as well as a rectangle (defined by TL/BR corners)
     //and splits it into equal size. if a separation among frames exists, takes it into account
     void defineSpriteFrames(
-        const QString& file,    //Filename - path in resource file
+        std::string file,    //Filename - path in resource file
         QPoint tl,              //TopLeft corner of Sprite
         QPoint br,              //BottomRight corner of Sprite
         size_t elements,        //Number of elements in Sprite
@@ -25,7 +25,7 @@ public:
     //and splits it into equal size. if a separation among frames exists, takes it into account.
     //rm pixel's value is taken as the value to be removed
     void defineSpriteFrameRemovingBg(
-        const QString& file,    //Pixmap class main input
+        std::string file,    //Pixmap class main input
         QPoint tl,              //TopLeft corner of Sprite
         QPoint br,              //BottomRight corner of Sprite
         QPoint rm,              //Pixel who's value is to be removed from image
@@ -55,7 +55,7 @@ public:
     //This method takes a Spriteshjeet as input, as well as a list of Rectangle
     //and extracts each rectangle as a new frame of a sprite.
     void defineFFASpriteFrames(
-        const QString&  pm,                 //Pixmap main Input
+        std::string  pm,                 //Pixmap main Input
         const std::vector<QRect>& frames) ; //vector of frames
 
     //This method takes a Spriteshjeet as input, as well as a list of Rectangle
@@ -68,7 +68,7 @@ public:
     //and extracts each rectangle as a new frame of a sprite.
     //rm pixel's value is taken as the value to be removed
     void defineFFASpriteFrameRemovingBackground(
-        const QString&  pm,                 //Pixmap main Input
+        std::string  pm,                 //Pixmap main Input
         QPoint rm,                          //Pixel who's value is to be removed from image
         const std::vector<QRect>& frames) ; //vector of frames
 

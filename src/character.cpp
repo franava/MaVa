@@ -6,14 +6,6 @@ Character::Character()
 {
 }
 
-Character::Character(
-    std::shared_ptr<Animation> a,
-    QTimer* t)
-{
-    animation_ = a ;
-    setPixmap(animation_->rotatePixmap()) ;
-}
-
 void Character::animate()
 {
     connect(t_, &QTimer::timeout, this, &Character::setFrame) ;
